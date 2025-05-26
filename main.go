@@ -5,6 +5,7 @@ import (
 	"bwastartup/handler"
 	"bwastartup/user"
 	"bwastartup/helper"
+	"bwastartup/campaign"
 
 	"fmt"
 	"log"
@@ -26,26 +27,28 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
+
+	campaigns,err := campaignRepository.FindByUserID(101)
+
+	fmt.Println("debug")
+	fmt.Println("debug")
+	fmt.Println("debug")
+	fmt.Println(len(campaigns))
+
+	for _, campaign := range campaigns{
+				  fmt.Println(campaign.Name)
+					if len(campaign.CampaignImages) > 0{
+							fmt.Println(campaign.CampaignImages[0].FileName)
+					}
+	}
+
+
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 
-	token,err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMn0.HIRKlgpxIlLOsIfsbGI5OqNlDMvszpE0HKCxaYtPu_8")
-	if err != nil{
-						fmt.Println("ERROR")
-						fmt.Println("ERROR")
-						fmt.Println("ERROR")
-	}
-	if token.Valid {
-					 fmt.Println("VALID")
-					 fmt.Println("VALID")
-					 fmt.Println("VALID")
-	} else{
-					fmt.Println("INVALID")
-					fmt.Println("INVALID")
-					fmt.Println("INVALID")
-	}
-
 	fmt.Println(authService.GenerateToken(1001))
+
 	
   userHandler := handler.NewUserHandler(userService,authService)
 
