@@ -56,13 +56,6 @@ func (h *userHandler) RegisterUser(c*gin.Context) {
 }
 
 func(h *userHandler) Login(c *gin.Context) {
-			//user memasukkan input(email & password)
-			//input ditangkap handler
-			//mapping dari input user ke input struct
-			//input struct passing service
-			//di service mencari dg bantuan repository user dengan email x
-			//mencocokan password
-
 			var input user.LoginInput	
 
 			err := c.ShouldBindJSON(&input)
@@ -134,7 +127,6 @@ func(h *userHandler) CheckEmailAvailability(c *gin.Context){
 }
 
 func (h *userHandler) UploadAvatar(c *gin.Context) {
-
 	file, err := c.FormFile("avatar")
 	if err != nil {
 		data := gin.H{"is_uploaded": false}
