@@ -1,8 +1,9 @@
 package transaction
 
 import (
-		"time"
-		"bwastartup/user"
+	"bwastartup/campaign"
+	"bwastartup/user"
+	"time"
 )
 
 type Transaction struct {
@@ -14,6 +15,7 @@ type Transaction struct {
 	Code       string
 	PaymentURL string
 	User       user.User `gorm:"foreignKey:UserID"`
+	Campaign 	 campaign.Campaign
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 }
